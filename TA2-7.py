@@ -14,14 +14,12 @@ for i, txt in enumerate(in_txt):
     else:
         input_test_data.append(int(t))
 
-print('for range', input_for_range)
-print('test data', input_test_data)
 
 # fibonacci 計算
 
 fibo_list = []  # fibonacci result
 
-for i in range(17):
+for i in range(10000):
     if i == 0:
         fibo_list.append(0)
     elif i == 1:
@@ -32,11 +30,11 @@ for i in range(17):
 del fibo_list[0]
 del fibo_list[0]
 
-print('fibo list', fibo_list)
 
 # 運算結果
 
 temp_result = []
+result = []
 
 for d in input_test_data:
     # 在 fibo_list 中一個一個找，小於等於 d 的為一定要加入(即為1)，再從陣列裡湊
@@ -51,31 +49,24 @@ for d in input_test_data:
         'fibo_list': sort_reversed
     })
 
-# print(temp_result)
-
-
 def calculate_test(result, fibo_list):
     exp = ''
+    cal = 0
     for i, f in enumerate(fibo_list):
-        cal = 0
         if i == 0:
             exp += str(1)
             cal += f
-        # elif cal == result:
-        #     exp += str(0)
-        # else:
-        #     cal += f
-        #     if cal > result:
-        #         exp += str(0) # 加起來大於，不要了
-        #         cal -= f
-        #     elif cal == result:
-        #         exp += str(1) # 加起來相等，結束
-        #     else:
-        #         exp += str(1) # 加起來小於，繼續
-        # print('i', i, 'cal', cal)
+        else:
+            cal += f
+            if cal <= result:
+                exp += str(1)
+            else:
+                exp += str(0)
+                cal -= f
     return exp
 
-
 for r in temp_result:
-    result = calculate_test(r['test_data'], r['fibo_list'])
-    print(str(r['test_data']) + '=' + result)
+    tem = calculate_test(r['test_data'], r['fibo_list'])
+    result.append(str(r['test_data']) + '=' + tem)
+
+print('\n'.join(result))
